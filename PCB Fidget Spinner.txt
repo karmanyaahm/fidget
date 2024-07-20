@@ -1,0 +1,43 @@
+## Internal vs External "Controlller" (24-07-17)
+
+- We could use a dedicated motor controller/microcontroller for the motor & charging operation
+- and one for the LED stuff
+
+Pros of seperate: End-hacker (user) can mess around with display controller without fucking up motor control (needs precise timing) or even worse charging
+Cons of seperate: cost, programming time
+
+- Or, one powerful microcontroller for everything
+Pros of one: Cheap BOM, cheap programming
+Cons of one: timing constraints
+
+- Middle ground would be using a microcontroller with dedicated peripherals that can do the hard work of charging and timing. (Maybe PIO, or dual core stuff)
+
+### External controller options
+- Could hypothetically use a simple SOT-23-6 IC like the AH9485/86 if single phase turns out to be enough. After all, we're only going around 30hz on the coils, or 600 RPM - mayyyybe double that speed, quadruple the control rate. so assume 200hz control signals.
+- At 8 ohms between terminals (2 coils/phase, 2 phases in series), we may not need current limiting at 5V. Just simple PWM ought to be enough to keep it from getting too hot.
+- Whether or not single coil works depends heavily on torque charecteristics right now.
+
+## Commutation methods (24-07-19)
+
+Watch this video by TI: https://www.youtube.com/watch?v=InzXA7mWBWE
+
+Basically, I should use trapezoidal control AND hall sensors right now. Hypothetically, since the use case for this spinner involves the user "kickstarting" the spinner and then maintaining speed, it is totally practical for us to use sensorless control. The question is, how much BEMF will be generated (Carl Bugeja said PCB motors are so weird) and will a normal ADC be able to detect that. For a prototype v1, I'll use a set of 3 half bridges, 3 hall sensors, and connect the coils to ADC pins to have unlimited control over sensored/sensorless.
+
+## Core motor design (24-07-18)
+
+## Coil part (rotor)
+
+- Ordered a basic 3 phase, 8 loop design made with Kimotor, fits in a 25.4mm circle.
+
+## Stator design
+
+v0 compatible: first try purely 3d printed (no bearings) w/ chessbot magnets (10mm dia, 1.8mm thick).
+
+
+## Experiment 1 (24-07-18)
+
+The initial goal is to ask: does it spin at all? This test will spin the magnets part cuz obviously the coil part needs wires. Eventually, the coil part will be free spinning and self-powered.
+Use v0 coil board w/ 3d printed stator. L298N board to control.
+
+## Experiment 2 (24-07-19)
+
