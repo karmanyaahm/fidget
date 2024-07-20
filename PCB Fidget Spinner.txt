@@ -1,4 +1,4 @@
-## Internal vs External "Controlller" (24-07-17)
+## Internal vs External "Controlller"
 
 - We could use a dedicated motor controller/microcontroller for the motor & charging operation
 - and one for the LED stuff
@@ -17,27 +17,31 @@ Cons of one: timing constraints
 - At 8 ohms between terminals (2 coils/phase, 2 phases in series), we may not need current limiting at 5V. Just simple PWM ought to be enough to keep it from getting too hot.
 - Whether or not single coil works depends heavily on torque charecteristics right now.
 
-## Commutation methods (24-07-19)
+## Commutation methods
 
 Watch this video by TI: https://www.youtube.com/watch?v=InzXA7mWBWE
 
-Basically, I should use trapezoidal control AND hall sensors right now. Hypothetically, since the use case for this spinner involves the user "kickstarting" the spinner and then maintaining speed, it is totally practical for us to use sensorless control. The question is, how much BEMF will be generated (Carl Bugeja said PCB motors are so weird) and will a normal ADC be able to detect that. For a prototype v1, I'll use a set of 3 half bridges, 3 hall sensors, and connect the coils to ADC pins to have unlimited control over sensored/sensorless.
+Basically, I should use trapezoidal control AND hall sensors right now. Hypothetically, since the use case for this spinner involves the user "kickstarting" the spinner and then maintaining speed, it is totally practical for us to use sensorless control. The question is, how much BEMF will be generated (Carl Bugeja said PCB motors are weird compared to normal ones) and will a normal ADC be able to detect that. For a prototype v1, I'll use a set of 3 half bridges, 3 hall sensors, and connect the coils to ADC pins to have unlimited control over sensored/sensorless. Researched out of the box controllers, but right now I want the most flexibility and minimum cost, so I'll stick to this.
 
-## Core motor design (24-07-18)
+I could do fancier, more efficient control algorithms, but don't want to prematurely optimize anything.
 
-## Coil part (rotor)
+## Core motor design
+
+### Coil part (rotor)
 
 - Ordered a basic 3 phase, 8 loop design made with Kimotor, fits in a 25.4mm circle.
 
-## Stator design
+### Stator design
 
 v0 compatible: first try purely 3d printed (no bearings) w/ chessbot magnets (10mm dia, 1.8mm thick).
 
 
-## Experiment 1 (24-07-18)
+## Experiments
+### Experiment 1
 
 The initial goal is to ask: does it spin at all? This test will spin the magnets part cuz obviously the coil part needs wires. Eventually, the coil part will be free spinning and self-powered.
 Use v0 coil board w/ 3d printed stator. L298N board to control.
 
-## Experiment 2 (24-07-19)
+### Experiment 2
 
+Spin magnet part and hook up coils to oscilloscope. Measure BEMF generated when spinning magnet part with my electric screwdriver (nom. 300RPM). 300RPM could be the lower limit of this device and it'll be totally fine (ChatGPT said it's the average range, TODO measure myself).
