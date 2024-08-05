@@ -21,9 +21,39 @@ Cons of one: timing constraints
 
 Watch this video by TI: https://www.youtube.com/watch?v=InzXA7mWBWE
 
-Basically, I should use trapezoidal control AND hall sensors right now. Hypothetically, since the use case for this spinner involves the user "kickstarting" the spinner and then maintaining speed, it is totally practical for us to use sensorless control. The question is, how much BEMF will be generated (Carl Bugeja said PCB motors are weird compared to normal ones) and will a normal ADC be able to detect that. For a prototype v1, I'll use a set of 3 half bridges, 3 hall sensors, and connect the coils to ADC pins to have unlimited control over sensored/sensorless. Researched out of the box controllers, but right now I want the most flexibility and minimum cost, so I'll stick to this.
+Basically, I should use trapezoidal control AND hall sensors right now. Hypothetically, since the use case for this spinner involves the user "kickstarting" the spinner and then maintaining speed, it is totally practical for us to use sensorless control. The question is, how much BEMF will be generated (Carl Bugeja said PCB motors are weird compared to normal ones) and will a normal ADC be able to detect that. For a prototype v1, I'll use a set of 3 half bridges, 3 hall sensors, and connect the coils to ADC pins to have unlimited control over sensored/sensorless. Researched out of the box controllers (ones from TI and ROHM as recommended by Bugeja), but right now I want the most flexibility and minimum cost, so I'll stick to a mcu.
 
 I could do fancier, more efficient control algorithms, but don't want to prematurely optimize anything.
+
+## Power supply
+
+Ideally I want to run under 5V, so I can use supercaps in parallel. However, there is an advantage to higher voltage systems (other than just motor performance). If the system voltage is 35V to 3V (buck converter), and single caps (5V) are in parallel, we are using a 2V range (3/5 of the energy is locked up). If 6 are in series, we are using 30 - 3, 27V range (3/30 is locked up). HOWEVER, that might require balancing for safety (simple balance w/ an op amp). So, it's more advantageous for v1 (NO PREMATURE OPTIMIZATIONS) to stay at 6 parallel (2 on both sides of each arm), and design a 5V to 2V system.
+
+According to this dimension engine calculation,  t = 8.5 min. The system can run continuously for 10 minutes. The hard part is finding 10F 5V cap that's small enough to fit in here. There's like this: MAL219691214E3, but it's $7 PER so $42 per device, clearly infeasible. IDK TBH. Hopefully my actual average current consumption is significantly smaller.
+
+```math
+v = 5Volt - 3.3Volt
+c = 6 * 15Farad
+q = c*v
+t = q/300mA; min
+```
+
+Since the charging rate for these 15F caps is 50mA, w/ 6 caps, 300mA. That's slower than a 400mA lipo cell at 1C. As much as I like supercaps, 400mA lipo cell might be the move: it can run them same thing for an HOUR. More complex charging, but the engineering design process has made its decision. No supercaps 😭
+
+```
+[ 5 ] energy_needed = 300mA * 5V * 60min; joule
+     energy_needed = 5400 joule
+
+[ 6 ] energy_needed / 3.7V; milliamp*hour
+     = 405.405 milliamp*hour
+```
+
+## Searching for appropriate batteries:
+
+25.4mm is the appropriate diameter for an outer spinner lobe.
+LIR2025s are too low power.
+LIR2032s??
+6x LIR1654 in parallel?
 
 ## Core motor design
 
@@ -40,7 +70,7 @@ v0 compatible: first try purely 3d printed (no bearings) w/ chessbot magnets (10
 ### Experiment 1
 
 The initial goal is to ask: does it spin at all? This test will spin the magnets part cuz obviously the coil part needs wires. Eventually, the coil part will be free spinning and self-powered.
-Use v0 coil board w/ 3d printed stator. L298N board to control.
+Use v0 coil board w/ 3d printed stator. L298N? board to control.
 
 ### Experiment 2
 

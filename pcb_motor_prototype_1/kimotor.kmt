@@ -1,0 +1,59 @@
+[Persistence_Options]
+[Persistence_Options/Window]
+[Persistence_Options/Window/kimotor]
+x=('int', '1356')
+y=('int', '152')
+w=('int', '450')
+h=('int', '850')
+Maximized=('bool', 'False')
+Iconized=('bool', 'False')
+[Persistence_Options/ComboBox]
+[Persistence_Options/ComboBox/m_cbOutline]
+Selection=('str', 'Circle')
+[Persistence_Options/ComboBox/m_cbMH]
+Selection=('str', 'None')
+[Persistence_Options/ComboBox/m_cbConnections]
+Selection=('str', '')
+[Persistence_Options/ComboBox/m_cbStrategy]
+Selection=('str', 'Radial')
+[Persistence_Options/ComboBox/m_cbPreset]
+Selection=('str', 'JLCPCB, 4-6L')
+[Persistence_Options/ComboBox/m_cbTP]
+Selection=('str', 'None')
+[Persistence_Options/ComboBox/m_cbTPSize]
+Selection=('str', '1.5')
+[Persistence_Options/Spin]
+[Persistence_Options/Spin/m_ctrlDout]
+Value=('float', '25.4')
+[Persistence_Options/Spin/m_ctrlFilletRadius]
+Value=('float', '3.1')
+[Persistence_Options/Spin/m_ctrlWmnt]
+Value=('float', '1.0')
+[Persistence_Options/Spin/m_ctrlDend]
+Value=('float', '20.0')
+[Persistence_Options/Spin/m_ctrlDin]
+Value=('float', '10.0')
+[Persistence_Options/Spin/m_ctrlDbore]
+Value=('float', '4.0')
+[Persistence_Options/Spin/m_ctrlWtrm]
+Value=('float', '4.0')
+[Persistence_Options/Spin/m_mhOut]
+Value=('float', '6.0')
+[Persistence_Options/Spin/m_mhOutR]
+Value=('float', '90.0')
+[Persistence_Options/Spin/m_mhIn]
+Value=('float', '0.0')
+[Persistence_Options/Spin/m_mhInR]
+Value=('float', '20.0')
+[Persistence_Options/Spin/m_ctrlPoles]
+Value=('float', '6.0')
+[Persistence_Options/Spin/m_ctrlLoops]
+Value=('float', '9.0')
+[Persistence_Options/Spin/m_ctrlLayers]
+Value=('float', '4.0')
+[Persistence_Options/Spin/m_ctrlTrackWidth]
+Value=('float', '0.134')
+[Persistence_Options/Spin/m_ctrlRfill]
+Value=('float', '0.1')
+[Persistence_Options/Spin/m_ambT]
+Value=('float', '20.0')
